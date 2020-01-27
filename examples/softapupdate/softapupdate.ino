@@ -2,6 +2,8 @@
 softapupdate.ino based on ESP32 core arduino examples:
 https://github.com/espressif/arduino-esp32/blob/master/libraries/ArduinoOTA/examples/OTAWebUpdater/OTAWebUpdater.ino
 
+Note: This example only works with http, not https. 
+
 //TODO make softapupdate a lib
 
 Copyright 2020 jeremy franklin-ross
@@ -82,7 +84,9 @@ void setup(void) {
   
   WiFi.softAP(WIFI_SSID, WIFI_PASSWORD);
   
-  // Make this device appear on a deterministic IP address (192.168.42.1) 
+  // Ahoy! This is really important. To make device appear on a 
+  // deterministic IP address (192.168.42.1 in this case).
+  // Necessary to know IP upfront to be able to direct users to right URL
   delay(100); // <- Supposedly necessary hack
   if (!WiFi.softAPConfig(IPAddress(192,168,42,1), IPAddress(192,168,42,1),  IPAddress(255,255,255,0))) {
     Serial.println("SOFT AP CONFIG FAILED");
