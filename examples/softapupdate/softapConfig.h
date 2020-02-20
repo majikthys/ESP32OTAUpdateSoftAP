@@ -1,0 +1,4 @@
+#define FORMAT_SPIFFS_IF_FAILED true
+#define VERSION "0.0.1"
+#define WIFI_SSID "TEST_SSID"
+#define WIFI_PASSWORD "TEST_PASSWORD"

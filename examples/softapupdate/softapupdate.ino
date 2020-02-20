@@ -17,25 +17,22 @@ See License.md for terms (GNU Lesser General Public License v2.1)
 #include <Update.h>
 #include <FS.h>
 #include <SPIFFS.h>
+#include "softapConfig.h"
 
-//TODO move passwords to a .h file
-#define FORMAT_SPIFFS_IF_FAILED true
-#define VERSION "0.0.9"
-#define WIFI_SSID "TEST_SSID"
-#define WIFI_PASSWORD "TEST_PASSWORD"
+
 // OTA Upload Form:
 // TODO Add note that WIFI reboot require reconnection after upload to confirm 
 #define FORM_HTML  "<form method='POST' action='/update' enctype='multipart/form-data' id='upload_form'>" \
                        "<input type='file' name='update'>" \
                        "<input type='submit' value='Update'>" \
                     "</form>" \
+                    "<div>Note: Update causes reboot, which may require you to manually reconnect your WiFi network</div>" \
                     "<div>THIS IS VERSION " VERSION "</div>" \
 
 WebServer server(80);
  
 /**
- * TODO move this away
- * List directories on SPIFFS
+  * List directories on SPIFFS
  */
 void listDir(fs::FS &fs, const char * dirname, uint8_t levels){
     Serial.printf("Listing directory: %s\r\n", dirname);
@@ -80,6 +77,7 @@ void setup(void) {
     return;
   }
   
+  // just for the info of it all.
   listDir(SPIFFS, "/", 0);
   
   WiFi.softAP(WIFI_SSID, WIFI_PASSWORD);
